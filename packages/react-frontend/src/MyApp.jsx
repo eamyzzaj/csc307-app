@@ -35,14 +35,4 @@ function MyApp() {
 
   
 
-  /*
-  function characterData() {
-    return (
-        <div className="container">
-          <Table characterData={characters} />
-        </div>
-      );
-  }
-  */
-
 export default MyApp;
