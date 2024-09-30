@@ -6,6 +6,13 @@ function Form() {
         job: ""
     });
 
+    function handleChange(event) {
+      const { name, value } = event.target;
+      if (name === "job")
+        setPerson({ name: person["name"], job: value });
+      else setPerson({ name: value, job: person["job"] });
+    }
+
     return (
       <form>
         <label htmlFor="name">Name</label>
@@ -26,13 +33,6 @@ function Form() {
         />
       </form>
     );
-}
-
-function handleChange(event) {
-  const { name, value } = event.target;
-  if (name === "job")
-    setPerson({ name: person["name"], job: value });
-  else setPerson({ name: value, job: person["job"] });
 }
 
 

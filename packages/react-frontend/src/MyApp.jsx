@@ -43,7 +43,6 @@ function MyApp() {
              removeCharacter={removeOneCharacter} 
             />
             <Form />
-         
         </div>
       );
 
