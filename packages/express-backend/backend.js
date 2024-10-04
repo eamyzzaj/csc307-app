@@ -46,6 +46,11 @@ const users = {
         id: "zap555",
         name: "Dennis",
         job: "Bartender"
+      }, 
+      {
+        id: "beadobee",
+        name: "Liv",
+        job: "Singer"
       }
     ]
   };
