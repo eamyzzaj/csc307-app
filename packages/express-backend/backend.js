@@ -56,7 +56,7 @@ const findUserByName = (name) => {
         res.status(200).send(nameResult);
       }
       else {
-        res.status(400).send(users);;
+        res.status(200).send(users);;
       }
   });
 
@@ -80,8 +80,14 @@ const addUser = (user) => {
     
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
-    addUser(userToAdd);
-    res.send();
+    let result = addUser(userToAdd);
+    if (result) {
+      //res.status(201).send();
+      res.status(200).send();
+    }
+    else {
+      res.status(400).send({error: "User can not be added"})
+    }
     });
 
 const deleteUserById = (userId) => {
