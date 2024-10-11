@@ -56,7 +56,7 @@ const findUserByName = (name) => {
         res.status(200).send(nameResult);
       }
       else {
-        res.status(400).json({error: "Please provide both name and job"});
+        res.status(400).send(users);;
       }
   });
 
