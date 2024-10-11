@@ -32,12 +32,37 @@ function MyApp() {
     return promise;
   }
   
+  // modified
   function removeOneCharacter(index) {
-      const updated = characters.filter((character, i) => {
-        return i !== index;
+      // const updated = characters.filter((character, i) => {
+      //   return i !== index;
+      // });
+      // setCharacters(updated);
+      const userId = characters[index].id;
+
+      fetch(`http://localhost:8000/users/${userId}`, {
+        method: 'DELETE'
+      })
+      .then((response) => {
+          if (response.status === 204) {
+            console.log({ message: "User was able to be deleted"});
+            const updated = characters.filter((character, i) => {
+                return i !== index;
+            });
+            setCharacters(updated);
+          }
+          else if (response.status === 404) {
+            console.log({ error: "User not found" });
+          }
+          else {
+            console.log({ error: "Delete not successful"});
+          }
+      })
+      .catch((error) => {
+          console.log({ error: "Delete not successful" }, error);
       });
-      setCharacters(updated);
-    }
+  }
+
 
   function updateList(person) {
       setCharacters([...characters, person]);
