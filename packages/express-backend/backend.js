@@ -77,12 +77,26 @@ const addUser = (user) => {
     users["users_list"].push(user);
     return user;
     };
+
+const assignRandomId = () => {
+    console.log("Random Id created!")
+    const result = Math.floor(Math.random() * 100000);
+    return result;
+};
     
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
-    let result = addUser(userToAdd);
+
+    const randomId = assignRandomId();
+    console.log("assignRandomId method works");
+    console.log(randomId);
+    //userToAdd.id = randomId.toString();
+    const userWithRandId = { id: randomId.toString(), ...userToAdd};
+
+    let result = addUser(userWithRandId);
     if (result) {
-      res.status(201).send();
+      //res.status(201).send();
+      res.status(201).json({ message: "User created successfully", user: result});
       //res.status(200).send();
     }
     else {
