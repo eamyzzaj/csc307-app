@@ -51,11 +51,32 @@ const addUser = (user) => {
     return user;
     };
     
-    app.post("/users", (req, res) => {
+app.post("/users", (req, res) => {
     const userToAdd = req.body;
     addUser(userToAdd);
     res.send();
     });
+
+const deleteUserById = (userId) => {
+    const userIndex = users["users_list"].findIndex((user) => user.id === userId);
+    users["users_list"].splice(userIndex, 1);
+    return userId;
+   
+};
+  
+app.delete("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const deletedUser = deleteUserById(userId);
+
+  if (deletedUser) {
+    res.status(204).send(deletedUser);
+  }
+  else {
+    res.status(404).send("Error: User not found")
+  }
+
+});
+
 
 const users = {
     users_list: [
