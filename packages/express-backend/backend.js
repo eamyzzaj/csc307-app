@@ -1,9 +1,11 @@
 // backend.js
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -17,11 +19,11 @@ app.listen(port, () => {
 });
 
 
-// const findUserByName = (name) => {
-//     return users["users_list"].filter(
-//       (user) => user["name"] === name
-//     );
-//   };
+const findUserByName = (name) => {
+    return users["users_list"].filter(
+      (user) => user["name"] === name
+    );
+  };
   
 //   app.get("/users", (req, res) => {
 //     const name = req.query.name;
@@ -46,9 +48,12 @@ app.listen(port, () => {
         const result = findUserByNameAndJob(name, job);
         if (result.length > 0) {
           res.status(200).json(result);
-        } else {
-          res.status(404).json({error: "No user found"});
-        }
+        } 
+      }
+      else if (name) {
+        let nameResult = findUserByName(name);
+        nameResult = { users_list: nameResult };
+        res.status(200).send(nameResult);
       }
       else {
         res.status(400).json({error: "Please provide both name and job"});
