@@ -82,8 +82,8 @@ app.post("/users", (req, res) => {
     const userToAdd = req.body;
     let result = addUser(userToAdd);
     if (result) {
-      //res.status(201).send();
-      res.status(200).send();
+      res.status(201).send();
+      //res.status(200).send();
     }
     else {
       res.status(400).send({error: "User can not be added"})
