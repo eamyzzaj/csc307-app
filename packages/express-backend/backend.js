@@ -33,6 +33,28 @@ const findUserByName = (name) => {
     }
   });
 
+  const findUserByNameAndJob = (name, job) => {
+    return users["users_list"].filter(
+      (user) => user["name"] === name && user["job"] === job);
+  };
+
+  app.get("/users", (req, res) => {
+      const name = req.query.name;
+      const job = req.query.job;
+      console.log("Working");
+      if (name && job) {
+        const result = findUserByNameAndJob(name, job);
+        if (result.length > 0) {
+          res.status(200).json(result);
+        } else {
+          res.status(404).json({error: "No user found"});
+        }
+      }
+      else {
+        res.status(400).json({error: "Please provide both name and job"});
+      }
+  });
+
 const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
   
