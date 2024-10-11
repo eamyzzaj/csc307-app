@@ -41,7 +41,6 @@ const findUserByName = (name) => {
   app.get("/users", (req, res) => {
       const name = req.query.name;
       const job = req.query.job;
-      console.log("Working");
       if (name && job) {
         const result = findUserByNameAndJob(name, job);
         if (result.length > 0) {
