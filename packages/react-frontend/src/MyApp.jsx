@@ -27,7 +27,13 @@ function MyApp() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(person),
-    });
+    })
+    // .then((res) => {
+    //     return res.json({ message: "Yay, user added."});
+    // })
+    // .catch((error) => {
+    //     console.log(error);
+    // })
 
     return promise;
   }
@@ -64,22 +70,31 @@ function MyApp() {
   }
 
 
-  function updateList(person) {
-      setCharacters([...characters, person]);
-  }
+  // function updateList(person) {
+  //   postUser(person)
+  //     .then((res) => setCharacters([...characters, person]))
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //   }
+      
   
   function updateList(person) { 
     postUser(person)
       .then((response) => {
         if (response.status === 201) {
           console.log("If statement inside updateList reached");
-          setCharacters([...characters, person])
+          return response.json();
         }
         else {
-          console.log("Response other than 201 received, user not added on frontend")
+          console.log("Response other than 201 received, user not added on frontend");
+          throw new Error("User was not added, response other than 201");
         }
       })
-      //.then(() => setCharacters([...characters, person]))
+      .then(({user}) => {
+        setCharacters([...characters, user]);
+        console.log({ message: "User is added!", user: user});
+      })
       .catch((error) => {
         console.log(error);
       })

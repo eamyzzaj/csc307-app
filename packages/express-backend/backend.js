@@ -96,7 +96,7 @@ app.post("/users", (req, res) => {
     let result = addUser(userWithRandId);
     if (result) {
       //res.status(201).send();
-      res.status(201).json({ message: "User created successfully", user: result});
+      res.status(201).json({ message: "User created successfully", user: userWithRandId});
       //res.status(200).send();
     }
     else {
@@ -158,9 +158,9 @@ const users = {
         job: "Singer"
       },
       {
-        "id": "qwe123",
-        "job": "Zookeeper",
-        "name": "Cindy"
+        id: "qwe123",
+        job: "Zookeeper",
+        name: "Cindy"
       }
     ]
   };
