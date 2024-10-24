@@ -1,6 +1,9 @@
 // backend.js
 import express from "express";
 import cors from "cors";
+import services from "./models/user-services.js"
+//services.method()
+//ex. services.getUsers(param, param)
 
 const app = express();
 const port = 8000;
@@ -62,6 +65,7 @@ const findUserByName = (name) => {
 
 const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
+    //services.findUserById(id) 
   
 app.get("/users/:id", (req, res) => {
     const id = req.params["id"]; //or req.params.id
