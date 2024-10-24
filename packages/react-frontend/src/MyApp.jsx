@@ -46,7 +46,7 @@ function MyApp() {
       //   return i !== index;
       // });
       // setCharacters(updated);
-      const userId = characters[index].id;
+      const userId = characters[index]._id;
 
       fetch(`http://localhost:8000/users/${userId}`, {
         method: 'DELETE'
