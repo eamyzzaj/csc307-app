@@ -28,6 +28,40 @@ const findUserByName = (name) => {
     );
   };
 
+  app.get("/users/:name", (req, res) => {
+    const name = req.params["name"]; //or req.params.id
+
+    services.findUserByName(name)
+      .then((result) => {
+        if (result) res.send(result);
+        else res.status(404).send(`Not Found: ${name}`);
+      })
+      .catch((error) => {
+        res.status(500).send(error.name);
+      });
+    }); 
+
+
+
+    const findUserByJob = (job) => {
+      return users["users_list"].filter(
+        (user) => user["job"] === job
+      );
+    };
+  
+    app.get("/users/:job", (req, res) => {
+      const job = req.params["job"]; //or req.params.id
+  
+      services.findUserByJob(job)
+        .then((result) => {
+          if (result) res.send(result);
+          else res.status(404).send(`Not Found: ${job}`);
+        })
+        .catch((error) => {
+          res.status(500).send(error.name);
+        });
+      });
+
   const findUserByNameAndJob = (name, job) => {
     return users["users_list"].filter(
       (user) => user["name"] === name && user["job"] === job);
@@ -85,24 +119,11 @@ const assignRandomId = () => {
     return result;
 };
     
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
     const userToAdd = req.body;
 
-    const randomId = assignRandomId();
-    console.log("assignRandomId method works");
-    console.log(randomId);
-    //userToAdd.id = randomId.toString();
-    const userWithRandId = { id: randomId.toString(), ...userToAdd};
-
-    let result = addUser(userWithRandId);
-    if (result) {
-      //res.status(201).send();
-      res.status(201).json({ message: "User created successfully", user: userWithRandId});
-      //res.status(200).send();
-    }
-    else {
-      res.status(400).send({error: "User can not be added"})
-    }
+    services.addUser(userToAdd)
+      .then((result) => res.status(201).send(result));
     });
 
 const deleteUserById = (userId) => {
