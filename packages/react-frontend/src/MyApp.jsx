@@ -16,7 +16,9 @@ function MyApp() {
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
-      .then((json) => setCharacters(json["users_list"]))
+      .then((json) => {
+        setCharacters(json)
+      })
       .catch((error) => { console.log(error); });
   }, [] );
   

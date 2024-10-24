@@ -46,4 +46,5 @@ export default {
   findUserById,
   findUserByName,
   findUserByJob,
+
 };

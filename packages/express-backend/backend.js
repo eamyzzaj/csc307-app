@@ -27,17 +27,6 @@ const findUserByName = (name) => {
       (user) => user["name"] === name
     );
   };
-  
-//   app.get("/users", (req, res) => {
-//     const name = req.query.name;
-//     if (name != undefined) {
-//       let result = findUserByName(name);
-//       result = { users_list: result };
-//       res.send(result);
-//     } else {
-//       res.send(users);
-//     }
-//   });
 
   const findUserByNameAndJob = (name, job) => {
     return users["users_list"].filter(
@@ -45,23 +34,28 @@ const findUserByName = (name) => {
   };
 
   app.get("/users", (req, res) => {
-      const name = req.query.name;
-      const job = req.query.job;
-      if (name && job) {
-        const result = findUserByNameAndJob(name, job);
-        if (result.length > 0) {
-          res.status(200).json(result);
-        } 
-      }
-      else if (name) {
-        let nameResult = findUserByName(name);
-        nameResult = { users_list: nameResult };
-        res.status(200).send(nameResult);
-      }
-      else {
-        res.status(200).send(users);;
-      }
+      // declaring request variables
+      // req.query asks what is user requesting
+      // this is the submission button
+      const name = req.query.name
+      const job = req.query.job
+
+      services.getUsers(name, job)
+      //.then() is promise of what backend will send
+      // users is made-up variable from me
+      // mongoose / user_services is way to link to db
+      // .then(users => res.send({users_lists: users}))
+      // .catch(error => res.status(500).send('Error: Request not completed'))
+        .then((result) => {
+          if (result) res.status(200).send(result);
+          else res.status(400).send(`Users not found`);
+        })
+        .catch((error) => {
+          res.status(500).send(error.name);
+        });
+
   });
+
 
 const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
@@ -69,12 +63,15 @@ const findUserById = (id) =>
   
 app.get("/users/:id", (req, res) => {
     const id = req.params["id"]; //or req.params.id
-    let result = findUserById(id);
-    if (result === undefined) {
-        res.status(404).send("Resource not found.");
-    } else {
-        res.send(result);
-    }
+
+    services.findUserById(id)
+      .then((result) => {
+        if (result) res.send(result);
+        else res.status(404).send(`Not Found: ${id}`);
+      })
+      .catch((error) => {
+        res.status(500).send(error.name);
+      });
     }); 
 
 const addUser = (user) => {
@@ -129,42 +126,42 @@ app.delete("/users/:id", (req, res) => {
 });
 
 
-const users = {
-    users_list: [
-      {
-        id: "xyz789",
-        name: "Charlie",
-        job: "Janitor"
-      },
-      {
-        id: "abc123",
-        name: "Mac",
-        job: "Bouncer"
-      },
-      {
-        id: "ppp222",
-        name: "Mac",
-        job: "Professor"
-      },
-      {
-        id: "yat999",
-        name: "Dee",
-        job: "Aspring actress"
-      },
-      {
-        id: "zap555",
-        name: "Dennis",
-        job: "Bartender"
-      }, 
-      {
-        id: "beadobee",
-        name: "Liv",
-        job: "Singer"
-      },
-      {
-        id: "qwe123",
-        job: "Zookeeper",
-        name: "Cindy"
-      }
-    ]
-  };
+// const users = {
+//     users_list: [
+//       {
+//         id: "xyz789",
+//         name: "Charlie",
+//         job: "Janitor"
+//       },
+//       {
+//         id: "abc123",
+//         name: "Mac",
+//         job: "Bouncer"
+//       },
+//       {
+//         id: "ppp222",
+//         name: "Mac",
+//         job: "Professor"
+//       },
+//       {
+//         id: "yat999",
+//         name: "Dee",
+//         job: "Aspring actress"
+//       },
+//       {
+//         id: "zap555",
+//         name: "Dennis",
+//         job: "Bartender"
+//       }, 
+//       {
+//         id: "beadobee",
+//         name: "Liv",
+//         job: "Singer"
+//       },
+//       {
+//         id: "qwe123",
+//         job: "Zookeeper",
+//         name: "Cindy"
+//       }
+//     ]
+//   };
