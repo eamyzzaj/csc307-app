@@ -22,50 +22,77 @@ app.listen(port, () => {
 });
 
 
-const findUserByName = (name) => {
-    return users["users_list"].filter(
-      (user) => user["name"] === name
-    );
-  };
+// const findUserByName = (name) => {
+//     return users["users_list"].filter(
+//       (user) => user["name"] === name
+//     );
+//   };
 
-  app.get("/users/:name", (req, res) => {
-    const name = req.params["name"]; //or req.params.id
+//   app.get("/users/:name", (req, res) => {
+//     const name = req.params["name"]; //or req.params.id
 
-    services.findUserByName(name)
-      .then((result) => {
-        if (result) res.send(result);
-        else res.status(404).send(`Not Found: ${name}`);
-      })
-      .catch((error) => {
-        res.status(500).send(error.name);
-      });
-    }); 
+//     services.findUserByName(name)
+//       .then((result) => {
+//         if (result) res.send(result);
+//         else res.status(404).send(`Not Found: ${name}`);
+//       })
+//       .catch((error) => {
+//         res.status(500).send(error.name);
+//       });
+//     }); 
 
 
 
-    const findUserByJob = (job) => {
-      return users["users_list"].filter(
-        (user) => user["job"] === job
-      );
-    };
+    // const findUserByJob = (job) => {
+    //   return users["users_list"].filter(
+    //     (user) => user["job"] === job
+    //   );
+    // };
   
-    app.get("/users/:job", (req, res) => {
-      const job = req.params["job"]; //or req.params.id
+    // app.get("/users/:job", (req, res) => {
+    //   const job = req.params["job"]; //or req.params.id
   
-      services.findUserByJob(job)
-        .then((result) => {
-          if (result) res.send(result);
-          else res.status(404).send(`Not Found: ${job}`);
-        })
-        .catch((error) => {
-          res.status(500).send(error.name);
-        });
-      });
+    //   services.findUserByJob(job)
+    //     .then((result) => {
+    //       if (result) res.send(result);
+    //       else res.status(404).send(`Not Found: ${job}`);
+    //     })
+    //     .catch((error) => {
+    //       res.status(500).send(error.name);
+    //     });
+    //   });
 
-  const findUserByNameAndJob = (name, job) => {
-    return users["users_list"].filter(
-      (user) => user["name"] === name && user["job"] === job);
-  };
+// //
+//   const findUserByJobAndName = (job, name) => {
+//     return users["users_list"].filter(
+//       (user) => user["name"] === name && user["job"] === job);
+//   };
+
+//   app.get("/users/:job/:name", (req, res) => {
+//     const name = req.params["name"]
+//     const job = req.params["job"];
+
+//     services.findUserByNameAndJob(name, job)
+//         .then((result) => {
+//           if (result) res.send(result);
+//           else res.status(404).send(`Not Found: User with name ${name} and job ${job}`);
+//         })
+//         .catch((error) => {
+//           res.status(500).send(error.name);
+//         });
+
+//       });
+
+    // services.findUserByJobAndName(job, name)
+    //   .then((result) => {
+    //     if (result) res.send(result);
+    //     else res.status(404).send(`Not Found: User with name ${name} and job ${job}`);
+    //   })
+    //   .catch((error) => {
+    //     res.status(500).send(error.name);
+    //   });
+    // });
+//
 
   app.get("/users", (req, res) => {
       // declaring request variables
@@ -146,43 +173,3 @@ app.delete("/users/:id", (req, res) => {
 
 });
 
-
-// const users = {
-//     users_list: [
-//       {
-//         id: "xyz789",
-//         name: "Charlie",
-//         job: "Janitor"
-//       },
-//       {
-//         id: "abc123",
-//         name: "Mac",
-//         job: "Bouncer"
-//       },
-//       {
-//         id: "ppp222",
-//         name: "Mac",
-//         job: "Professor"
-//       },
-//       {
-//         id: "yat999",
-//         name: "Dee",
-//         job: "Aspring actress"
-//       },
-//       {
-//         id: "zap555",
-//         name: "Dennis",
-//         job: "Bartender"
-//       }, 
-//       {
-//         id: "beadobee",
-//         name: "Liv",
-//         job: "Singer"
-//       },
-//       {
-//         id: "qwe123",
-//         job: "Zookeeper",
-//         name: "Cindy"
-//       }
-//     ]
-//   };
