@@ -21,79 +21,6 @@ app.listen(port, () => {
   );
 });
 
-
-// const findUserByName = (name) => {
-//     return users["users_list"].filter(
-//       (user) => user["name"] === name
-//     );
-//   };
-
-//   app.get("/users/:name", (req, res) => {
-//     const name = req.params["name"]; //or req.params.id
-
-//     services.findUserByName(name)
-//       .then((result) => {
-//         if (result) res.send(result);
-//         else res.status(404).send(`Not Found: ${name}`);
-//       })
-//       .catch((error) => {
-//         res.status(500).send(error.name);
-//       });
-//     }); 
-
-
-
-    // const findUserByJob = (job) => {
-    //   return users["users_list"].filter(
-    //     (user) => user["job"] === job
-    //   );
-    // };
-  
-    // app.get("/users/:job", (req, res) => {
-    //   const job = req.params["job"]; //or req.params.id
-  
-    //   services.findUserByJob(job)
-    //     .then((result) => {
-    //       if (result) res.send(result);
-    //       else res.status(404).send(`Not Found: ${job}`);
-    //     })
-    //     .catch((error) => {
-    //       res.status(500).send(error.name);
-    //     });
-    //   });
-
-// //
-//   const findUserByJobAndName = (job, name) => {
-//     return users["users_list"].filter(
-//       (user) => user["name"] === name && user["job"] === job);
-//   };
-
-//   app.get("/users/:job/:name", (req, res) => {
-//     const name = req.params["name"]
-//     const job = req.params["job"];
-
-//     services.findUserByNameAndJob(name, job)
-//         .then((result) => {
-//           if (result) res.send(result);
-//           else res.status(404).send(`Not Found: User with name ${name} and job ${job}`);
-//         })
-//         .catch((error) => {
-//           res.status(500).send(error.name);
-//         });
-
-//       });
-
-    // services.findUserByJobAndName(job, name)
-    //   .then((result) => {
-    //     if (result) res.send(result);
-    //     else res.status(404).send(`Not Found: User with name ${name} and job ${job}`);
-    //   })
-    //   .catch((error) => {
-    //     res.status(500).send(error.name);
-    //   });
-    // });
-//
-
   app.get("/users", (req, res) => {
       // declaring request variables
       // req.query asks what is user requesting
@@ -120,7 +47,6 @@ app.listen(port, () => {
 
 const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
-    //services.findUserById(id) 
   
 app.get("/users/:id", (req, res) => {
     const id = req.params["id"]; //or req.params.id
@@ -136,7 +62,7 @@ app.get("/users/:id", (req, res) => {
     }); 
 
 const addUser = (user) => {
-    users["users_list"].push(user);
+    user["users_list"].push(user);
     return user;
     };
 
@@ -149,7 +75,8 @@ const assignRandomId = () => {
 app.post("/users", async (req, res) => {
     const userToAdd = req.body;
 
-    services.addUser(userToAdd)
+    services
+      .addUser(userToAdd)
       .then((result) => res.status(201).send(result));
     });
 

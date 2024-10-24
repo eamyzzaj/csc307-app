@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-import userModel from "./user.js";
+import userModel from "./user.js"
+import User from "./user.js";
+
+// const User = User;
 
 mongoose.set("debug", true);
 
@@ -30,9 +33,10 @@ function findUserById(id) {
 }
 
 function addUser(user) {
-  const userToAdd = new userModel(user);
-  const promise = userToAdd.save();
-  return promise;
+  const userToAdd = new User(user);
+  return userToAdd.save();
+  // const promise = userToAdd.save();
+  // return promise;
 }
 
 function findUserByName(name) {
