@@ -17,6 +17,10 @@ function TableHeader() {
   function TableBody(props) {
     console.log("Table body props is", props);
     const rows = props.characterData.map((row, index) => {
+      // Add another check to avoid mapping over undefined/null rows
+      if (!row) {
+          return null;
+      }
         console.log("Row in TableBody is ", row);
         return (
           <tr key={index}>
