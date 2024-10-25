@@ -51,6 +51,22 @@ function findUserByNameAndJob(name, job) {
   return userModel.find({  name: name, job: job });
 }
 
+function deleteUserById(id) {
+  return userModel.findByIdAndDelete(id)
+    .then((result) => {
+      if (result) {
+        console.log(`User with ID ${id} deleted successfully.`);
+        return { success: true, message: "User deleted successfully." };
+      } else {
+        return { success: false, message: "User not found." };
+      }
+    })
+    .catch((error) => {
+      console.error(`Error deleting user with ID ${id}:`, error);
+      return { success: false, message: "An error occurred while deleting the user.", error };
+    });
+}
+
 
 export default {
   addUser,
@@ -58,6 +74,7 @@ export default {
   findUserById,
   findUserByName,
   findUserByJob,
-  findUserByNameAndJob
+  findUserByNameAndJob,
+  deleteUserById
 
 };

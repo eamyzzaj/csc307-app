@@ -1,6 +1,6 @@
 // src/MyApp.jsx
-import Table from "./Table";
-import Form from "./Form";
+import Table from "./Table.jsx";
+import Form from "./Form.jsx";
 import React, {useState, useEffect} from 'react';
 
 
@@ -29,13 +29,7 @@ function MyApp() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(person),
-    })
-    // .then((res) => {
-    //     return res.json({ message: "Yay, user added."});
-    // })
-    // .catch((error) => {
-    //     console.log(error);
-    // })
+    });
 
     return promise;
   }
@@ -71,14 +65,6 @@ function MyApp() {
       });
   }
 
-
-  // function updateList(person) {
-  //   postUser(person)
-  //     .then((res) => setCharacters([...characters, person]))
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //   }
       
   
   function updateList(person) { 

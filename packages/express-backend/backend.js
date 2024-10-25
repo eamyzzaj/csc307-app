@@ -2,8 +2,6 @@
 import express from "express";
 import cors from "cors";
 import services from "./models/user-services.js"
-//services.method()
-//ex. services.getUsers(param, param)
 
 const app = express();
 const port = 8000;
@@ -44,10 +42,6 @@ app.listen(port, () => {
 
   });
 
-
-const findUserById = (id) =>
-    users["users_list"].find((user) => user["id"] === id);
-  
 app.get("/users/:id", (req, res) => {
     const id = req.params["id"]; //or req.params.id
 
@@ -61,16 +55,6 @@ app.get("/users/:id", (req, res) => {
       });
     }); 
 
-const addUser = (user) => {
-    user["users_list"].push(user);
-    return user;
-    };
-
-const assignRandomId = () => {
-    console.log("Random Id created!")
-    const result = Math.floor(Math.random() * 100000);
-    return result;
-};
     
 app.post("/users", async (req, res) => {
     const userToAdd = req.body;
@@ -80,23 +64,21 @@ app.post("/users", async (req, res) => {
       .then((result) => res.status(201).send(result));
     });
 
-const deleteUserById = (userId) => {
-    const userIndex = users["users_list"].findIndex((user) => user.id === userId);
-    users["users_list"].splice(userIndex, 1);
-    return userId;
-   
-};
   
 app.delete("/users/:id", (req, res) => {
-  const userId = req.params.id;
-  const deletedUser = deleteUserById(userId);
+  const id = req.params.id;
 
-  if (deletedUser) {
-    res.status(204).send(deletedUser);
-  }
-  else {
-    res.status(404).send("Error: User not found")
-  }
-
-});
+  services
+    .deleteUserById(id)
+    .then((result) => {
+      if (result.success) {
+        res.status(204).send(); // No content on successful deletion
+      } else {
+        res.status(404).json({ message: result.message });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Server error", error });
+    });
+  });
 

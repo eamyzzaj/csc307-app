@@ -1,4 +1,6 @@
 // src/Table.jsx
+import React from "react";
+
 function TableHeader() {
     return (
       <thead>
@@ -13,9 +15,11 @@ function TableHeader() {
   }
   
   function TableBody(props) {
+    console.log("Table body props is", props);
     const rows = props.characterData.map((row, index) => {
+        console.log("Row in TableBody is ", row);
         return (
-            <tr key={index}>
+          <tr key={index}>
             <td>{row.name}</td>
             <td>{row.job}</td>
             <td>{row._id}</td>
@@ -24,7 +28,7 @@ function TableHeader() {
                  Delete
                 </button>
             </td>
-        </tr>
+          </tr>
         );
        }
       );
