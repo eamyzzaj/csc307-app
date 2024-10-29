@@ -14,3 +14,8 @@ function containsNumbers(text){
     }
     return false;
   }
+
+
+
+// last line of module.js
+export default { sum, div, containsNumbers };
