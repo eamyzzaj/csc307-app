@@ -4,7 +4,7 @@
   "main": "module.js",
   "type": "module",
   "scripts": {
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "npx cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "jest": {
     "transform": {}
